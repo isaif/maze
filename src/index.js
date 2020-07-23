@@ -10,8 +10,8 @@ const numberOfHorizontalCells = 3;
 const numberOfVerticalCells = 3;
 
 // frame variables
-const width = 600;
-const height = 600;
+const width = window.innerWidth;
+const height = window.innerHeight;
 
 const columnUnitLength = width / numberOfVerticalCells;
 const rowUnitLength = height / numberOfHorizontalCells;
