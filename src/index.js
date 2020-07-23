@@ -13,8 +13,8 @@ const numberOfVerticalCells = 3;
 const width = 600;
 const height = 600;
 
-const rowUnitLength = width / numberOfVerticalCells;
-const columnUnitLength = height / numberOfHorizontalCells;
+const columnUnitLength = width / numberOfVerticalCells;
+const rowUnitLength = height / numberOfHorizontalCells;
 
 // create an engine
 const engine = Engine.create();
@@ -150,10 +150,8 @@ verticalWalls.forEach((row, rowIndex) => {
       return;
     }
 
-    const xOrigin = rowUnitLength * columnIndex + rowUnitLength;
-    const yOrigin = columnUnitLength * rowIndex + columnUnitLength / 2;
-    // const midPoint = yOrigin + columnUnitLength / 2;
-    // const wall-cordinates = [x-origin, (y-origin + columnUnitLength /2) ]
+    const xOrigin = columnUnitLength * columnIndex + columnUnitLength;
+    const yOrigin = rowUnitLength * rowIndex + rowUnitLength / 2;
 
     const wall = Bodies.rectangle(xOrigin, yOrigin, 5, rowUnitLength, { isStatic: true });
 
@@ -167,9 +165,8 @@ horizontalWalls.forEach((row, rowIndex) => {
       return;
     }
 
-    const xOrigin = rowUnitLength * columnIndex + rowUnitLength / 2;
-    const yOrigin = columnUnitLength * rowIndex + columnUnitLength;
-    // const midPoint = xOrigin + rowUnitLength / 2;
+    const xOrigin = columnUnitLength * columnIndex + columnUnitLength / 2;
+    const yOrigin = rowUnitLength * rowIndex + rowUnitLength;
 
     const wall = Bodies.rectangle(xOrigin, yOrigin, columnUnitLength, 5, { isStatic: true });
 
