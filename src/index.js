@@ -9,15 +9,15 @@ const {
 } = Matter;
 
 // Maze variables
-const numberOfCellsInColumn = 5; // i.e. number of rows
-const numberOfCellsInRow = 7; // i.e. number of columns
+const numberOfRows = 5;
+const numberOfColumns = 7;
 
 // frame variables
 const width = window.innerWidth;
 const height = window.innerHeight;
 
-const unitlengthX = width / numberOfCellsInRow;
-const unitlengthY = height / numberOfCellsInColumn;
+const unitlengthX = width / numberOfColumns;
+const unitlengthY = height / numberOfRows;
 
 // create an engine
 const engine = Engine.create();
@@ -46,17 +46,17 @@ Render.run(render);
 // add runner
 Runner.run(Runner.create(), engine);
 
-const maze = Array(numberOfCellsInColumn).fill(null)
-  .map(() => Array(numberOfCellsInRow).fill(false));
+const maze = Array(numberOfRows).fill(null)
+  .map(() => Array(numberOfColumns).fill(false));
 
-const verticalWalls = Array(numberOfCellsInColumn).fill(null)
-  .map(() => Array(numberOfCellsInRow - 1).fill(false));
+const verticalWalls = Array(numberOfRows).fill(null)
+  .map(() => Array(numberOfColumns - 1).fill(false));
 
-const horizontalWalls = Array(numberOfCellsInColumn - 1).fill(null)
-  .map(() => Array(numberOfCellsInRow).fill(false));
+const horizontalWalls = Array(numberOfRows - 1).fill(null)
+  .map(() => Array(numberOfColumns).fill(false));
 
 // Choose a random cell to visit
-const firstCellToVisit = randomCell(numberOfCellsInRow, numberOfCellsInColumn);
+const firstCellToVisit = randomCell(numberOfColumns, numberOfRows);
 
 // console.log(maze);
 // console.log(horizontalWalls);
@@ -85,9 +85,9 @@ const visitCell = (cell) => {
     // Check if it is not out of bounds and continue for rest
     if (
       nextRow < 0
-        || nextRow >= numberOfCellsInColumn
+        || nextRow >= numberOfRows
         || nextColumn < 0
-        || nextColumn >= numberOfCellsInRow
+        || nextColumn >= numberOfColumns
     ) {
       continue;
     }
