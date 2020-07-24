@@ -9,8 +9,8 @@ const {
 } = Matter;
 
 // Maze variables
-const numberOfCellsInColumn = 5;
-const numberOfCellsInRow = 7;
+const numberOfCellsInColumn = 5; // i.e. number of rows
+const numberOfCellsInRow = 7; // i.e. number of columns
 
 // frame variables
 const width = window.innerWidth;
@@ -68,7 +68,7 @@ const firstCellToVisit = randomCell(numberOfCellsInRow, numberOfCellsInColumn);
 const visitCell = (cell) => {
   const { row, column } = cell;
 
-  // Erowit if cell is alreadcolumn visited
+  // Exit if cell is already visited
   if (maze[row][column]) {
     return;
   }
