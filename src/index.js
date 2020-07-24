@@ -1,4 +1,7 @@
 import Matter from 'matter-js';
+import genNeighbourCells from './neighbours';
+import boundaries from './boundaries';
+import randomCell from './random-cell';
 
 // module aliases
 const {
@@ -6,18 +9,21 @@ const {
 } = Matter;
 
 // Maze variables
-const numberOfHorizontalCells = 3;
-const numberOfVerticalCells = 3;
+const numberOfCellsInColumn = 5;
+const numberOfCellsInRow = 7;
 
 // frame variables
 const width = window.innerWidth;
 const height = window.innerHeight;
 
-const columnUnitLength = width / numberOfVerticalCells;
-const rowUnitLength = height / numberOfHorizontalCells;
+const unitlengthX = width / numberOfCellsInRow;
+const unitlengthY = height / numberOfCellsInColumn;
 
 // create an engine
 const engine = Engine.create();
+
+// create world
+const { world } = engine;
 
 // create a renderer
 const render = Render.create({
@@ -29,17 +35,7 @@ const render = Render.create({
   },
 });
 
-// boundaries to keep everything inside the frame
-// x-cordinate, y-cordinate, width, height
-// top, right, bottom and left
-const boundaries = [
-  Bodies.rectangle(width / 2, 0, width, 20, { isStatic: true }),
-  Bodies.rectangle(width, height / 2, 20, height, { isStatic: true }),
-  Bodies.rectangle(width / 2, height, width, 20, { isStatic: true }),
-  Bodies.rectangle(0, height / 2, 20, height, { isStatic: true }),
-];
-
-World.add(engine.world, boundaries);
+World.add(world, boundaries(width, height));
 
 // run the engine
 Engine.run(engine);
@@ -50,39 +46,17 @@ Render.run(render);
 // add runner
 Runner.run(Runner.create(), engine);
 
-const maze = Array(numberOfVerticalCells).fill(null)
-  .map(() => Array(numberOfHorizontalCells).fill(false));
+const maze = Array(numberOfCellsInColumn).fill(null)
+  .map(() => Array(numberOfCellsInRow).fill(false));
 
-const verticalWalls = Array(numberOfVerticalCells).fill(null)
-  .map(() => Array(numberOfHorizontalCells - 1).fill(false));
+const verticalWalls = Array(numberOfCellsInColumn).fill(null)
+  .map(() => Array(numberOfCellsInRow - 1).fill(false));
 
-const horizontalWalls = Array(numberOfVerticalCells - 1).fill(null)
-  .map(() => Array(numberOfHorizontalCells).fill(false));
+const horizontalWalls = Array(numberOfCellsInColumn - 1).fill(null)
+  .map(() => Array(numberOfCellsInRow).fill(false));
 
 // Choose a random cell to visit
-const firstCellToVisit = {
-  x: (Math.floor(Math.random() * numberOfVerticalCells)),
-  y: (Math.floor(Math.random() * numberOfHorizontalCells)),
-};
-
-// Generate list of all neighbours of a given cell and shuffle it
-const genNeighbourCells = (cell) => {
-  // make a list of all neighbours
-  const unshuffled = [
-    { x: cell.x - 1, y: cell.y, direction: 'up' },
-    { x: cell.x, y: cell.y + 1, direction: 'right' },
-    { x: cell.x + 1, y: cell.y, direction: 'down' },
-    { x: cell.x, y: cell.y - 1, direction: 'left' },
-  ];
-
-  // shuffle the list
-  const shuffled = unshuffled
-    .map((element) => ({ sort: Math.random(), value: element }))
-    .sort((firstElemen, secondElement) => firstElemen.sort - secondElement.sort)
-    .map((element) => element.value);
-
-  return shuffled;
-};
+const firstCellToVisit = randomCell(numberOfCellsInRow, numberOfCellsInColumn);
 
 // console.log(maze);
 // console.log(horizontalWalls);
@@ -92,46 +66,46 @@ const genNeighbourCells = (cell) => {
 
 // Go to the given cell and do other things
 const visitCell = (cell) => {
-  const { x, y } = cell;
+  const { row, column } = cell;
 
-  // Exit if cell is already visited
-  if (maze[x][y]) {
+  // Erowit if cell is alreadcolumn visited
+  if (maze[row][column]) {
     return;
   }
 
   // Else mark it as visited
-  maze[x][y] = true;
+  maze[row][column] = true;
 
   // Get all the neighbours of cell
   const neighbours = genNeighbourCells(cell);
 
   for (const neighbour of neighbours) {
-    const { x: row, y: column, direction } = neighbour;
+    const { row: nextRow, column: nextColumn, direction } = neighbour;
 
     // Check if it is not out of bounds and continue for rest
     if (
-      row < 0
-        || row >= numberOfVerticalCells
-        || column < 0
-        || column >= numberOfHorizontalCells
+      nextRow < 0
+        || nextRow >= numberOfCellsInColumn
+        || nextColumn < 0
+        || nextColumn >= numberOfCellsInRow
     ) {
       continue;
     }
 
     // Check if it was visited before
-    if (maze[row][column]) {
+    if (maze[nextRow][nextColumn]) {
       continue;
     }
 
     // Remove walls
     if (direction === 'up') {
-      horizontalWalls[x - 1][y] = true;
+      horizontalWalls[row - 1][column] = true;
     } else if (direction === 'right') {
-      verticalWalls[x][y] = true;
+      verticalWalls[row][column] = true;
     } else if (direction === 'down') {
-      horizontalWalls[x][y] = true;
+      horizontalWalls[row][column] = true;
     } else if (direction === 'left') {
-      verticalWalls[x][y - 1] = true;
+      verticalWalls[row][column - 1] = true;
     }
 
     visitCell(neighbour);
@@ -150,12 +124,12 @@ verticalWalls.forEach((row, rowIndex) => {
       return;
     }
 
-    const xOrigin = columnUnitLength * columnIndex + columnUnitLength;
-    const yOrigin = rowUnitLength * rowIndex + rowUnitLength / 2;
+    const xOrigin = unitlengthX * columnIndex + unitlengthX;
+    const yOrigin = unitlengthY * rowIndex + unitlengthY / 2;
 
-    const wall = Bodies.rectangle(xOrigin, yOrigin, 5, rowUnitLength, { isStatic: true });
+    const wall = Bodies.rectangle(xOrigin, yOrigin, 5, unitlengthY, { isStatic: true });
 
-    World.add(engine.world, wall);
+    World.add(world, wall);
   });
 });
 
@@ -165,11 +139,11 @@ horizontalWalls.forEach((row, rowIndex) => {
       return;
     }
 
-    const xOrigin = columnUnitLength * columnIndex + columnUnitLength / 2;
-    const yOrigin = rowUnitLength * rowIndex + rowUnitLength;
+    const xOrigin = unitlengthX * columnIndex + unitlengthX / 2;
+    const yOrigin = unitlengthY * rowIndex + unitlengthY;
 
-    const wall = Bodies.rectangle(xOrigin, yOrigin, columnUnitLength, 5, { isStatic: true });
+    const wall = Bodies.rectangle(xOrigin, yOrigin, unitlengthX, 5, { isStatic: true });
 
-    World.add(engine.world, wall);
+    World.add(world, wall);
   });
 });
