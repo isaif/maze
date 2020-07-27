@@ -1,6 +1,6 @@
-import genNeighbourCells from "./neighbours";
-import randomCell from "./random-cell";
-import { generateWallPositions, createWalls } from "./walls";
+import genNeighbourCells from './neighbours';
+import randomCell from './random-cell';
+import { generateWallPositions, createWalls } from './walls';
 
 export const createMaze = (
   numberOfRows,
@@ -20,7 +20,7 @@ export const createMaze = (
 
   const {
     verticalWallPositions,
-    horizontalWallPositions,
+    horizontalWallPositions
   } = generateWallPositions(numberOfRows, numberOfColumns);
 
   // Go to the given cell and do other things
@@ -57,13 +57,13 @@ export const createMaze = (
       }
 
       // Remove walls
-      if (direction === "up") {
+      if (direction === 'up') {
         horizontalWallPositions[row - 1][column] = true;
-      } else if (direction === "right") {
+      } else if (direction === 'right') {
         verticalWallPositions[row][column] = true;
-      } else if (direction === "down") {
+      } else if (direction === 'down') {
         horizontalWallPositions[row][column] = true;
-      } else if (direction === "left") {
+      } else if (direction === 'left') {
         verticalWallPositions[row][column - 1] = true;
       }
 

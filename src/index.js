@@ -1,6 +1,6 @@
-import Matter from "matter-js";
-import createBoundaries from "./boundaries";
-import { createMaze } from "./maze";
+import Matter from 'matter-js';
+import createBoundaries from './boundaries';
+import { createMaze } from './maze';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -24,7 +24,7 @@ const { world } = engine;
 const render = Render.create({
   element: document.body,
   engine,
-  options: { width, height },
+  options: { width, height }
 });
 
 // run the engine
