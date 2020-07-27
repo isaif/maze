@@ -6,7 +6,7 @@ export const createMaze = (numberOfRows, numberOfColumns, width, height, Bodies,
   const cellWidth = width / numberOfColumns;
   const cellHeight = height / numberOfRows;
 
-  const firstCellToVisit = randomCell(numberOfColumns, numberOfRows);
+  const firstCellToVisit = randomCell(numberOfRows, numberOfColumns);
 
   const maze = Array(numberOfRows).fill(null)
     .map(() => Array(numberOfColumns).fill(false));

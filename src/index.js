@@ -1,6 +1,6 @@
 import Matter from 'matter-js';
 import boundaries from './boundaries';
-import createMaze from './maze';
+import { createMaze } from './maze';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
