@@ -1,14 +1,12 @@
-import Matter from 'matter-js';
-import boundaries from './boundaries';
-import { createMaze } from './maze';
+import Matter from "matter-js";
+import createBoundaries from "./boundaries";
+import { createMaze } from "./maze";
 
 const width = window.innerWidth;
 const height = window.innerHeight;
 
 // module aliases
-const {
-  Engine, Render, World, Bodies, Runner,
-} = Matter;
+const { Engine, Render, Runner } = Matter;
 
 // Maze variables
 const numberOfRows = 5;
@@ -19,20 +17,15 @@ const numberOfColumns = 7;
 // create an engine
 const engine = Engine.create();
 
-// create world
+// get world from engine
 const { world } = engine;
 
 // create a renderer
 const render = Render.create({
   element: document.body,
   engine,
-  options: {
-    width,
-    height,
-  },
+  options: { width, height },
 });
-
-World.add(world, boundaries(width, height));
 
 // run the engine
 Engine.run(engine);
@@ -43,8 +36,6 @@ Render.run(render);
 // add runner
 Runner.run(Runner.create(), engine);
 
-// console.log(maze);
-// console.log(horizontalWalls);
-// console.log(verticalWalls);
+createBoundaries(width, height, world);
 
-createMaze(numberOfRows, numberOfColumns, width, height, Bodies, World, world);
+createMaze(numberOfRows, numberOfColumns, width, height, world);

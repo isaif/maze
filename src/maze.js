@@ -1,17 +1,27 @@
-import genNeighbourCells from './neighbours';
-import randomCell from './random-cell';
-import { generateWallPositions, createWalls } from './walls';
+import genNeighbourCells from "./neighbours";
+import randomCell from "./random-cell";
+import { generateWallPositions, createWalls } from "./walls";
 
-export const createMaze = (numberOfRows, numberOfColumns, width, height, Bodies, World, world) => {
+export const createMaze = (
+  numberOfRows,
+  numberOfColumns,
+  width,
+  height,
+  world
+) => {
   const cellWidth = width / numberOfColumns;
   const cellHeight = height / numberOfRows;
 
   const firstCellToVisit = randomCell(numberOfRows, numberOfColumns);
 
-  const maze = Array(numberOfRows).fill(null)
+  const maze = Array(numberOfRows)
+    .fill(null)
     .map(() => Array(numberOfColumns).fill(false));
 
-  const { verticalWallPositions, horizontalWallPositions } = generateWallPositions(numberOfRows, numberOfColumns);
+  const {
+    verticalWallPositions,
+    horizontalWallPositions,
+  } = generateWallPositions(numberOfRows, numberOfColumns);
 
   // Go to the given cell and do other things
   const visitCell = (cell) => {
@@ -33,10 +43,10 @@ export const createMaze = (numberOfRows, numberOfColumns, width, height, Bodies,
 
       // Check if it is not out of bounds and continue for rest
       if (
-        nextRow < 0
-        || nextRow >= numberOfRows
-        || nextColumn < 0
-        || nextColumn >= numberOfColumns
+        nextRow < 0 ||
+        nextRow >= numberOfRows ||
+        nextColumn < 0 ||
+        nextColumn >= numberOfColumns
       ) {
         continue;
       }
@@ -47,13 +57,13 @@ export const createMaze = (numberOfRows, numberOfColumns, width, height, Bodies,
       }
 
       // Remove walls
-      if (direction === 'up') {
+      if (direction === "up") {
         horizontalWallPositions[row - 1][column] = true;
-      } else if (direction === 'right') {
+      } else if (direction === "right") {
         verticalWallPositions[row][column] = true;
-      } else if (direction === 'down') {
+      } else if (direction === "down") {
         horizontalWallPositions[row][column] = true;
-      } else if (direction === 'left') {
+      } else if (direction === "left") {
         verticalWallPositions[row][column - 1] = true;
       }
 
@@ -62,7 +72,13 @@ export const createMaze = (numberOfRows, numberOfColumns, width, height, Bodies,
   };
   visitCell(firstCellToVisit);
 
-  createWalls(verticalWallPositions, horizontalWallPositions, cellWidth, cellHeight, Bodies, World, world);
+  createWalls(
+    verticalWallPositions,
+    horizontalWallPositions,
+    cellWidth,
+    cellHeight,
+    world
+  );
 };
 
 export default createMaze;
