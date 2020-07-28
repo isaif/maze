@@ -9,9 +9,10 @@ const height = window.innerHeight;
 
 const { Engine, Render, Runner } = Matter;
 
-// Maze variables
 const numberOfRows = 5;
 const numberOfColumns = 7;
+
+const boundaryThickness = 60;
 
 // create an engine
 const engine = Engine.create();
@@ -35,7 +36,7 @@ Render.run(render);
 // add runner
 Runner.run(Runner.create(), engine);
 
-createBoundaries(width, height, world);
+createBoundaries(width, height, boundaryThickness, world);
 
 createMaze(numberOfRows, numberOfColumns, width, height, world);
 
