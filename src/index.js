@@ -1,6 +1,7 @@
 import Matter from 'matter-js';
 import createBoundaries from './boundaries';
 import createMaze from './maze';
+import createGoal from './goal';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -36,3 +37,5 @@ Runner.run(Runner.create(), engine);
 createBoundaries(width, height, world);
 
 createMaze(numberOfRows, numberOfColumns, width, height, world);
+
+createGoal(numberOfRows, numberOfColumns, width, height, world);
