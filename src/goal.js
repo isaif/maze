@@ -9,8 +9,8 @@ const createGoal = (numberOfRows, numberOfColumns, width, height, world) => {
   const goal = Bodies.rectangle(
     width - cellWidth / 2,
     height - cellHeight / 2,
-    cellHeight * 0.7,
     cellWidth * 0.7,
+    cellHeight * 0.7,
     {
       isStatic: true
     }
