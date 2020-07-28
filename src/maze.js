@@ -2,13 +2,7 @@ import genNeighbourCells from './neighbours';
 import randomCell from './random-cell';
 import { generateWallPositions, createWalls } from './walls';
 
-export const createMaze = (
-  numberOfRows,
-  numberOfColumns,
-  width,
-  height,
-  world
-) => {
+const createMaze = (numberOfRows, numberOfColumns, width, height, world) => {
   const cellWidth = width / numberOfColumns;
   const cellHeight = height / numberOfRows;
 
