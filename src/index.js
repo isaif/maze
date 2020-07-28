@@ -2,6 +2,7 @@ import Matter from 'matter-js';
 import createBoundaries from './boundaries';
 import createMaze from './maze';
 import createGoal from './goal';
+import createBall from './ball';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -39,3 +40,5 @@ createBoundaries(width, height, world);
 createMaze(numberOfRows, numberOfColumns, width, height, world);
 
 createGoal(numberOfRows, numberOfColumns, width, height, world);
+
+createBall(numberOfRows, numberOfColumns, width, height, world);
