@@ -5,8 +5,6 @@ const { Bodies, World } = Matter;
 // Generate an array of walls
 // false means there is a wall
 export const generateWallPositions = (numberOfRows, numberOfColumns) => {
-  const wallThickness = 5;
-
   const verticalWallPositions = Array(numberOfRows)
     .fill(null)
     .map(() => Array(numberOfColumns - 1).fill(false));
@@ -20,11 +18,12 @@ export const generateWalls = (
   verticalWallPositions,
   horizontalWallPositions,
   cellWidth,
-  cellHeight
+  cellHeight,
+  Bodies,
+  wallThickness = 5
 ) => {
   const verticalWalls = [];
   const horizontalWalls = [];
-  const wallThickness = 5;
 
   verticalWallPositions.forEach((row, rowIndex) => {
     row.forEach((open, columnIndex) => {
