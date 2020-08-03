@@ -9,10 +9,12 @@ const createBall = (numberOfRows, numberOfColumns, width, height, world) => {
   const ballRadius = (Math.min(cellHeight, cellWidth) * 0.6) / 2;
 
   const ball = Bodies.circle(cellWidth / 2, cellHeight / 2, ballRadius, {
-    isStatic: true
+    label: 'ball'
   });
 
   World.add(world, ball);
+
+  return ball;
 };
 
 export default createBall;
