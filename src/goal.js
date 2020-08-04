@@ -12,6 +12,7 @@ const createGoal = (numberOfRows, numberOfColumns, width, height, world) => {
     cellWidth * 0.7,
     cellHeight * 0.7,
     {
+      label: 'goal',
       isStatic: true
     }
   );
