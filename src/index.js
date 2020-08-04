@@ -9,10 +9,17 @@ const height = window.innerHeight;
 
 const { Engine, Render, Runner } = Matter;
 
+// playbox is where game is displayed
+const playbox = document.createElement('div');
+document.body.appendChild(playbox);
+
+playbox.height = height;
+playbox.width = width;
+
 const numberOfRows = 5;
 const numberOfColumns = 7;
 
-const boundaryThickness = 60;
+const boundaryThickness = 6;
 
 // create an engine
 const engine = Engine.create();
@@ -22,13 +29,13 @@ const { world } = engine;
 
 // create a renderer
 const render = Render.create({
-  element: document.body,
+  element: playbox,
   engine,
   options: { width, height }
 });
 
 // run the engine
-Engine.run(engine);
+// Engine.run(engine);
 
 // run the renderer
 Render.run(render);
