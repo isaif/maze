@@ -4,6 +4,7 @@ import createMaze from './maze';
 import createGoal from './goal';
 import createBall from './ball';
 import activateControls from './game-controls';
+import checkWin from './win';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -56,3 +57,5 @@ createGoal(numberOfRows, numberOfColumns, width, height, world);
 const ball = createBall(numberOfRows, numberOfColumns, width, height, world);
 
 activateControls(ball);
+
+checkWin(engine);
