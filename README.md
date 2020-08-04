@@ -20,6 +20,6 @@ Webpack have other benefits as well like bundling and supporting any module form
 6. **eslint-config-prettier** and **eslint-plugin-prettier** to make eslint work with prettier.
  
 
-##Credit  
+## Credit  
 [The Modern Javascript Bootcamp Course (2020)](https://www.udemy.com/share/102gjm/)  
 Lesson 22. Javascript with the Canvas API
