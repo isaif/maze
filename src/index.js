@@ -28,6 +28,9 @@ const engine = Engine.create();
 // get world from engine
 const { world } = engine;
 
+// Remove gravity from the game
+engine.world.gravity.y = 0;
+
 // create a renderer
 const render = Render.create({
   element: playbox,
