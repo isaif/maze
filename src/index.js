@@ -3,6 +3,7 @@ import createBoundaries from './boundaries';
 import createMaze from './maze';
 import createGoal from './goal';
 import createBall from './ball';
+import activateControls from './game-controls';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -49,4 +50,6 @@ createMaze(numberOfRows, numberOfColumns, width, height, world);
 
 createGoal(numberOfRows, numberOfColumns, width, height, world);
 
-createBall(numberOfRows, numberOfColumns, width, height, world);
+const ball = createBall(numberOfRows, numberOfColumns, width, height, world);
+
+activateControls(ball);
